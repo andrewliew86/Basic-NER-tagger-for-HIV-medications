@@ -44,6 +44,7 @@ web_list = []
 
 # Turn a list of drugs (strings) into a list of Spacy doc objects for matching
 patterns = list(nlp.pipe(drug_list))
+
 # Give the matcher a name and add the patterns of interest for matching
 matcher.add('drug', None, *patterns)
 
