@@ -75,7 +75,7 @@ print(nlp.pipe_names)
 # Enter your text of interest into the sentence variable
 sentence = "Raltegravir and lamivudine are common HIV medications used in the clinic. Raltegravir has now been superseded by tenofovir"
 
-# Make the sentence lowercase, process the text and print the entity text, label and capital attributes
+# Make the sentence lowercase, process the text and print the entity text, label and PI_url attributes
 doc = nlp(sentence.lower())
 print([(ent.text, ent.label_, ent._.PI_url) for ent in doc.ents])
 
