@@ -4,4 +4,4 @@ Background: A Product Information document (PI) provides health professionals wi
 
 Results: I used Python libraries to identify common HIV medications mentioned in a text and automatically download PDFs of the PIs from the TGA website. This saved alot of my time and reduced the risk of 'missing' PIs.  Note that the HIV drug list used in the spaCy matcher is not exhaustive and does not include combination therapies.
 
-Libraries/tools used: SpaCy, Selenium 
+Python libraries/tools used: spaCy, Selenium
