@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This little script identifies HIV drugs mentioned in a text and brings up the product information webpage for
-the HIV drugs that are that are identified.
+This little script identifies common HIV drugs mentioned in an input text and brings up the product information webpage for
+the HIV drugs that are identified.
 Note that you will need spacy and selenium libraries for full functionality
 @author: Andrew
 """
@@ -11,11 +11,12 @@ from spacy.tokens import Span
 from spacy.matcher import PhraseMatcher
 from selenium import webdriver
 
-# load small english model and create a PhraseMatcher object
-nlp = spacy.load('en_core_web_sm')
-matcher = PhraseMatcher(nlp.vocab)
+# Enter your text of interest 
+sentence = "Raltegravir and lamivudine are common HIV medications used in the clinic. Raltegravir has now been superseded by tenofovir"
 
-# Customize the matcher with the drug list
+
+# List of HIV drugs for entity recognition
+# Update list accordingly if drug of interest is not present
 drug_list = ['abacavir',
              'emtricitabine',
              'lamivudine',
@@ -38,6 +39,10 @@ drug_list = ['abacavir',
              'raltegravir',
              'ibalizumab-uiyk',
              'cobicistat']
+
+# load small english model and create a PhraseMatcher object
+nlp = spacy.load('en_core_web_sm')
+matcher = PhraseMatcher(nlp.vocab)
 
 # Create empty list to add list of websites that will be populated with urls for downloading pdfs of PIs
 web_list = []
@@ -72,14 +77,10 @@ Span.set_extension('PI_url', getter=get_pi_url, force=True)
 nlp.add_pipe(drug_component)
 print(nlp.pipe_names)
 
-# Enter your text of interest into the sentence variable
-sentence = "Raltegravir and lamivudine are common HIV medications used in the clinic. Raltegravir has now been superseded by tenofovir"
 
 # Make the sentence lowercase, process the text and print the entity text, label and PI_url attributes
 doc = nlp(sentence.lower())
 print([(ent.text, ent.label_, ent._.PI_url) for ent in doc.ents])
-
-
 for web in list(set(web_list)):
     # Note that I used 'set' here so that there are no repeats of urls
     # (e.g. when drugs are mentioned more than once in the text) in the 'web_list' list
